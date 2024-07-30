@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $table = 'products';
-    protected $fillable = ['name', 'price'];
+    protected $fillable = ['name', 'price', 'inventory'];
 
     public function wishlistItems(){
         return $this->hasMany(WishlistItems::class, 'product_id', 'id');
