@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Product\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +34,12 @@ Route::group(['prefix' => 'product'], function () {
     Route::post('create', [ProductController::class, 'store']);
     Route::patch('update', [ProductController::class, 'update']);
     Route::delete('delete', [ProductController::class, 'destroy']);
+});
 
-
+Route::group(['prefix' => 'cart'], function () {
+    Route::get('/', [CartController::class, 'viewCart']);
+    Route::post('add', [CartController::class, 'addItem']);
+    Route::patch('update', [CartController::class, 'updateItem']);
+    Route::delete('remove', [CartController::class, 'removeItem']);
 });
 
