@@ -17,7 +17,7 @@ class CartController extends Controller
         $this->middleware('auth:api');
     }
     public function addItem(CartRequest $request)
-    ha
+    {
         $user = auth()->user();
 
         // Check if the user has a cart, if not create one
