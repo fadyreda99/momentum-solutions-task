@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Product\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +20,20 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
 });
+
+Route::group(['prefix' => 'product'], function () {
+    Route::get('all', [ProductController::class, 'index']);
+    Route::get('get', [ProductController::class, 'show']);
+    Route::post('create', [ProductController::class, 'store']);
+    Route::patch('update', [ProductController::class, 'update']);
+    Route::delete('delete', [ProductController::class, 'destroy']);
+
+
+});
+
