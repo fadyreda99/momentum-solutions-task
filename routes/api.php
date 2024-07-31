@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Wishlist\WishlistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,5 +42,10 @@ Route::group(['prefix' => 'cart'], function () {
     Route::post('add', [CartController::class, 'addItem']);
     Route::patch('update', [CartController::class, 'updateItem']);
     Route::delete('remove', [CartController::class, 'removeItem']);
+});
+
+Route::group(['prefix' => 'wishlist'], function () {
+    Route::post('add', [WishlistController::class, 'addItem']);
+    Route::delete('remove', [WishlistController::class, 'removeItem']);
 });
 
