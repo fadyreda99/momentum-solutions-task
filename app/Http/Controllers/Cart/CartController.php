@@ -29,7 +29,7 @@ class CartController extends Controller
         $product = Product::findOrFail($request->product_id);
 
         // Check if the item already exists in the cart
-        $existingItem = $cart->cartItems()->where('product_id', $product->id)->first();
+        $existingItem = $cart->cartItems()->where('product_id', $product->id)->where('user_id', $user->id)->first();
 
         if ($existingItem) {
             // If the item exists, update the quantity
