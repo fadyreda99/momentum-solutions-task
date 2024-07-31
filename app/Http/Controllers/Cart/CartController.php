@@ -60,10 +60,22 @@ class CartController extends Controller
 
     public function removeItem(CartRequest $request)
     {
+        // Find the cart item
         $item = CartItems::findOrFail($request->item_id);
+
+        // Get the associated cart
+        $cart = $item->cart;
+
+        // Delete the cart item
         $item->delete();
 
-        return new CartResource($item->cart);
+        // Check if the cart has no more items
+        if ($cart->cartItems()->count() === 0) {
+            // Delete the cart if it has no more items
+            $cart->delete();
+        }
+
+        return new CartResource($cart);
     }
 
     public function viewCart()
