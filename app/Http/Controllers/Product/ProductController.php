@@ -6,61 +6,38 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\ProductRequest;
 use App\Http\Resources\Products\ProductResource;
 use App\Models\Product;
+use App\Services\Prouct\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function __construct()
+    public function __construct(private ProductService $productService)
     {
         $this->middleware('auth:api');
     }
     public function index(Request $request)
     {
-        $products = Product::query();
-
-        if ($request->paginate) {
-            $products = $products->paginate($request->paginate);
-        } else {
-            $products = $products->get();
-        }
-
-        return ProductResource::collection($products);
+        return $this->productService->index($request);
     }
 
 
     public function store(ProductRequest $request)
     {
-
-
-        $product = Product::create([
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'inventory'=>$request->inventory
-        ]);
-
-        return new ProductResource($product);
+        return $this->productService->store($request);
     }
 
     public function show(ProductRequest $request)
     {
-        $product = Product::findOrFail($request->id);
-
-        return new ProductResource($product);
+        return $this->productService->show($request);
     }
 
     public function update(ProductRequest $request)
     {
-
-        $product = Product::findOrFail($request->id);
-        $product->update($request->all());
-
-        return new ProductResource($product);
+            return $this->productService->update($request);
     }
 
     public function destroy(ProductRequest $request)
     {
-       $product = Product::destroy($request->id);
-
-        return response()->json('product deleted successfully', 200);
+        return $this->productService->destroy($request);
     }
 }
