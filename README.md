@@ -31,7 +31,9 @@
 4. ##### Set up the database
 
    DB_DATABASE=yourdatabase
+
    DB_USERNAME=yourusername
+
    DB_PASSWORD=yourpassword
 
    **_php artisan migrate --seed_**
